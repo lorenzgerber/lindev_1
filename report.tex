@@ -1,0 +1,110 @@
+\documentclass[a4paper,11pt,twoside]{article}
+%\documentclass[a4paper,11pt,twoside,se]{article}
+
+\usepackage{UmUStudentReport}
+\usepackage{verbatim}   % Multi-line comments using \begin{comment}
+\usepackage{courier}    % Nicer fonts are used. (not necessary)
+\usepackage{pslatex}    % Also nicer fonts. (not necessary)
+\usepackage[pdftex]{graphicx}   % allows including pdf figures
+\usepackage{listings}
+\usepackage{pgf-umlcd}
+%\usepackage{lmodern}   % Optional fonts. (not necessary)
+%\usepackage{tabularx}
+%\usepackage{microtype} % Provides some typographic improvements over default settings
+%\usepackage{placeins}  % For aligning images with \FloatBarrier
+%\usepackage{booktabs}  % For nice-looking tables
+%\usepackage{titlesec}  % More granular control of sections.
+
+% DOCUMENT INFO
+% =============
+\department{Department of Applied Physics and Electronics}
+\coursename{Linux as Development Environment 7.5 ECTS}
+\coursecode{5EL142 HT-16}
+\title{Assignment 1}
+\author{Lorenz Gerber, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
+\date{2016-08-20}
+%\revisiondate{2016-01-18}
+\instructor{Björne A. Lindberg}
+
+
+% DOCUMENT SETTINGS
+% =================
+\bibliographystyle{plain}
+%\bibliographystyle{ieee}
+\pagestyle{fancy}
+\raggedbottom
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+%\graphicspath{{images/}}   %Path for images
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{listing}{thp}{lop}
+\floatname{listing}{Listing}
+
+
+
+% DEFINES
+% =======
+%\newcommand{\mycommand}{<latex code>}
+
+% DOCUMENT
+% ========
+\begin{document}
+\lstset{language=C}
+\maketitle
+\thispagestyle{empty}
+\newpage
+%\tableofcontents
+%\thispagestyle{empty}
+%\newpage
+
+\clearpage
+\pagenumbering{arabic}
+
+\section{Web based course vs class lectuers} 
+The obvious advantage that a web based course offers is the flexibility in time management. No need to get up early in the morning to go to lectures. Everybody can work at times it suits them best. This freedom is nice for people who can handle it. 
+
+My personal experience with web based courses is that they require a higher degree of discipline to stay on track and finish the course compared to university courses with real lectuers. I have been studying a number of web based courses, everything from simple web tutorials to official University courses such as the present one. I realize that I probably take such a course more serious when I have to sign up for it officially. Also the fact that course start is only possible at few dates during the year gives to me an incentive to really invest the needed time.
+
+I think that achieving well in web based courses can also be learnt and has a lot to do with a serious time management. In my opinion, it is important for the future job life to get used to this form of learning as it probably will be the most suitable mode to stay up to date with new techniques and frameworks. 
+
+
+\section{Presentation}
+My name is Lorenz Gerber, I'm 40 years and have been living in Sweden the last 14 years. After studies in chemistry, a PhD in biology and several years of research, I recently quit the academic career path and started to study computer sciences at Umeå University. At the moment I also have a 50\% sidejob as Java developer with a german startup company in the field of chemical data analysis. I started more serious programming during my PhD. I used the language `R', first to analyse data, then more and more to develop data analysis tools as my research topic. I worked mostly on OSX and as such I'm used to bash and command line tools.
+
+My motivation for the current course is the fact that it is a requirment for a lot of follow up courses. Coming from the field of analytical chemistry where tinkering with electronics and instrumentation is daily work, I would like to study more on analog/digital electronics, embedded systems and real time operating systems.
+
+\section{Time planning}
+As I mentioned before, I m currently also enrolled in the bachelor program for computer sciences at Umeå University. HT 16 is my second year on the program and we will start with a course in system-level programming in C on Linux. Hence I assume that a lot of the parts in this web course will fall in place quite automatically. However I'm aware that it still will require a good amount of time to keep up with the reports and specific tasks. Find below my plan that I will try to stick to.
+
+
+\begin{table}[]
+  \centering
+  \caption{Time Planning for Course `Linux as Development Environment'}
+  \label{my-label}
+  \begin{tabular}{lllll}
+    \# & Topic                 & Days & Start week & End week \\ \cline{2-5}
+    1  & Intro / Planning      & 0.5  & 33         & 34       \\
+    2  & Basics                & 2    & 34         & 35       \\
+    3  & Versioning / Team Dev & 2    & 35         & 36       \\
+    4  & Editors               & 2    & 36         & 37       \\
+    5  & Compiling / Linking   & 2    & 37         & 38       \\
+    6  & Libraries             & 4    & 38         & 40       \\
+    7  & Linux Admin Tools     & 2    & 40         & 41       \\
+    8  & Linux Dev Tools       & 2    & 41         & 42       \\
+    9  & Literate Programming  & 2    & 42         & 43       \\
+    10 & Scripting             & 4    & 43         & 45       \\
+    11 & GUI libraries         & 2    & 45         & 46       \\
+    12 & IDE Eclipse           & 2    & 46         & 47       \\
+    13 & 'deb' Packaging       & 2    & 47         & 48       \\
+    14 & Course Evaluation     & 2    & 48         & 49
+  \end{tabular}
+  \end{table}
+
+
+
+\addcontentsline{toc}{section}{\refname}
+\bibliography{references}
+
+\end{document}
