@@ -1,0 +1,276 @@
+\documentclass[a4paper,11pt,twoside]{article}
+%\documentclass[a4paper,11pt,twoside,se]{article}
+
+\usepackage{UmUStudentReport}
+\usepackage{verbatim}   % Multi-line comments using \begin{comment}
+\usepackage{courier}    % Nicer fonts are used. (not necessary)
+\usepackage{pslatex}    % Also nicer fonts. (not necessary)
+\usepackage[pdftex]{graphicx}   % allows including pdf figures
+\usepackage{listings}
+\usepackage{pgf-umlcd}
+\usepackage{blindtext}
+\usepackage{enumitem}
+\usepackage{scrextend}
+%\usepackage{lmodern}   % Optional fonts. (not necessary)
+%\usepackage{tabularx}
+%\usepackage{microtype} % Provides some typographic improvements over default settings
+%\usepackage{placeins}  % For aligning images with \FloatBarrier
+%\usepackage{booktabs}  % For nice-looking tables
+%\usepackage{titlesec}  % More granular control of sections.
+
+% DOCUMENT INFO
+% =============
+\department{Department of Applied Physics and Electronics}
+\coursename{Linux as Development Environment 7.5 ECTS}
+\coursecode{5EL142 HT-16}
+\title{Assignment 3}
+\author{Lorenz Gerber, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
+\date{2016-08-20}
+%\revisiondate{2016-01-18}
+\instructor{Sven Rönnbäck}
+
+
+% DOCUMENT SETTINGS
+% =================
+\bibliographystyle{plain}
+%\bibliographystyle{ieee}
+\pagestyle{fancy}
+\raggedbottom
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+%\graphicspath{{images/}}   %Path for images
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{listing}{thp}{lop}
+\floatname{listing}{Listing}
+
+
+
+% DEFINES
+% =======
+%\newcommand{\mycommand}{<latex code>}
+
+% DOCUMENT
+% ========
+\begin{document}
+\lstset{language=C}
+\maketitle
+\thispagestyle{empty}
+\newpage
+%\tableofcontents
+%\thispagestyle{empty}
+%\newpage
+
+\clearpage
+\pagenumbering{arabic}
+
+\section{Step-by-step description of CVS exercise}
+\begin{enumerate}
+\item
+  In a sh shell, setup CVS locally:
+\begin{verbatim}
+> mkdir ~/cvs
+> export CVSROOT=/home/myusername/cvs
+> ~/cvs/cvs init
+\end{verbatim}
+
+\item
+  Create a new directory with some files
+\begin{verbatim}
+> mkdir ~/project_import
+> cd ~/project_import
+> touch test1.txt
+> touch test2.txt
+\end{verbatim}
+
+\item
+  Import files into a new CVS repository and checkout a working copy
+\begin{verbatim}
+> cvs import -m 'initial source import' new_project LOGE start
+> cd ~/
+> rm -r ~/project_import
+> cvs checkout new_project
+\end{verbatim}
+
+
+\item
+  Make some changes to the file(s) in the working copy and inspect the difference to the repository
+\begin{verbatim}
+> cd ~/new_project
+> ls > test1.txt
+> cvs status
+> cvs diff test1.txt
+\end{verbatim}
+
+\item
+  Commit the changes in the working copy into the repository
+\begin{verbatim}
+> cvs commit -m 'added some text'
+\end{verbatim}
+
+\end{enumerate}
+
+\section{Step-by-step description of SVN exercise}
+
+\begin{enumerate}
+\item
+Checkout working copy of remote repository
+  
+\begin{verbatim}
+> mkdir ~/working_copy_1
+> cd ~/working_copy_1
+> svn co svn://130.239.163.12/labb4 . --username labb4
+> mkdir lorenz_gerber
+> echo "Testing SVN Repositories" > lorenz_gerber/lg.txt
+> svn add lorenz_gerber
+> svn commit -m 'adding my stuff'
+\end{verbatim}
+
+\item
+  Add name to \verb!users! file
+
+\begin{verbatim}
+> echo "Lorenz Gerber 2016-09-24" >> users
+> svn commit -m 'added name to users file'
+\end{verbatim}
+
+\item
+  Test some commands
+
+\begin{verbatim}
+> svn update
+> svn help log
+> svn log -l 3 -v
+> svn --diff users
+> svn info
+Path: .
+Working Copy Root Path: /home/xxxxxxx/working_copy_1
+URL: svn://130.239.163.12/labb4
+Relative URL: ^/
+Repository Root: svn://130.239.163.12/labb4
+Repository UUID: 218399d0-4e29-49cd-b0e8-479a866bfbe8
+Revision: 2371
+Node Kind: directory
+Schedule: normal
+Last Changed Author: labb4
+Last Changed Rev: 2371
+Last Changed Date: 2016-09-24 10:30:25 +0200 (lör, 24 sep 2016)
+> svn help commit
+\end{verbatim}
+
+\item
+  Checkout second working copy of remote repository
+
+\begin{verbatim}
+> mkdir ~/working_copy_2
+> cd ~/working_copy_2
+> svn co svn://130.239.163.12/labb4 . --username labb4
+
+\end{verbatim}
+
+
+\item
+  Create a conflict by changing the same file in both working copies. Committing and resolving conflict
+
+\begin{verbatim}
+> echo "add some text" >> ~/working_copy_1/lorenz_gerber/lg.txt
+> echo "add some other text" >> ~/working_copy_2/lorenz_gerber/lg.txt
+> cd ~/working_copy_2
+> svn update
+> svn commit -m 'added some text'
+> svn update
+> cd ~/working_copy_1
+> svn update
+Updating '.':
+C    lorenz_gerber/lg.txt
+Updated to revision 2372.
+Summary of conflicts:
+  Text conflicts: 1
+Conflict discovered in file 'lorenz_gerber/lg.txt'.
+Select: (p) postpone, (df) show diff, (e) edit file, (m) merge,
+        (mc) my side of conflict, (tc) their side of conflict,
+        (s) show all options: df
+--- lorenz_gerber/lg.txt.r2372- THEIRS
++++ lorenz_gerber/lg.txt- MERGED
+@@ -1,2 +1,7 @@
+ Testing SVN Repositories
++<<<<<<< .mine
++add some other text
++||||||| .r2371
++=======
+ add some text
++>>>>>>> .r2372
+Select: (p) postpone, (df) show diff, (e) edit file, (m) merge,
+        (r) mark resolved, (mc) my side of conflict,
+        (tc) their side of conflict, (s) show all options: 
+svn update
+Updating '.':
+C    lorenz_gerber/lg.txt
+Updated to revision 2372.
+Summary of conflicts:
+  Text conflicts: 1
+Conflict discovered in file 'lorenz_gerber/lg.txt'.
+Select: (p) postpone, (df) show diff, (e) edit file, (m) merge,
+        (mc) my side of conflict, (tc) their side of conflict,
+        (s) show all options: df
+--- lorenz_gerber/lg.txt.r2372- THEIRS
++++ lorenz_gerber/lg.txt- MERGED
+@@ -1,2 +1,7 @@
+ Testing SVN Repositories
++<<<<<<< .mine
++add some other text
++||||||| .r2371
++=======
+ add some text
++>>>>>>> .r2372
+Select: (p) postpone, (df) show diff, (e) edit file, (m) merge,
+        (r) mark resolved, (mc) my side of conflict,
+        (tc) their side of conflict, (s) show all options: m
+Merging 'lorenz_gerber/lg.txt'.
+Conflicting section found during merge:
+(1) their version (at line 2)     |(2) your version (at line 2)           
+----------------------------------+----------------------------------
+add some text                     |add some other text               
+----------------------------------+----------------------------------
+Select: (1) use their version, (2) use your version,
+        (12) their version first, then yours,
+        (21) your version first, then theirs,
+        (e1) edit their version and use the result,
+        (e2) edit your version and use the result,
+        (eb) edit both versions and use the result,
+        (p) postpone this conflicting section leaving conflict markers,
+        (a) abort file merge and return to main menu: eb
+Merge of 'lorenz_gerber/lg.txt' completed.
+Select: (p) postpone, (df) show diff, (e) edit file, (m) merge,
+        (r) mark resolved, (mc) my side of conflict,
+        (tc) their side of conflict, (s) show all options: r
+Resolved conflicted state of 'lorenz_gerber/lg.txt'
+Summary of conflicts:
+  Text conflicts: 0 remaining (and 1 already resolved)
+> svn status
+M       lorenz_gerber/lg.txt
+> svn commit -m 'conflict resolved'
+> svn update
+Updating '.':
+At revision 2373.
+
+\end{verbatim}
+\end{enumerate}
+
+\section{Description Conflict Resolution in SVN excercise}
+Two scenarios were tested:
+\begin{enumerate}
+\item edit same file, on different lines
+\item edit same file, same line
+\end{enumerate}
+
+In the first case the files were opened with an editor. Sequential committing and updating the individual working copies worked without a conflict. Please note that this case is not shown in the above step-by-step description.
+
+For the second case, non-identical text was appended to the same file. The first working copy was commited and updated without obtaining a conflict message. Then, before trying to commit the edit in working copy 2, \verb!svn update! was run which resulted in a `conflict resolution dialog' as shown in the step-by-step description above. It was decided to edit both files. Some changes were made and saved to the local copy. On exiting the editor, the `conflict resolution dialog' became active again, no `mark resolved' was chose which resulted in return to the command prompt. The working copy contained now the local conflict resolution. Applying \verb!svn commit -m 'conflict resolution'! commited the edits to the remote respository and after another \verb!svn update!, the working copy was confirmed to be clear by running \verb!svn status!. This case is the one shown as step-by-step description in the previous section.
+
+
+\addcontentsline{toc}{section}{\refname}
+%\bibliography{references}
+
+\end{document}

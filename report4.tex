@@ -1,0 +1,125 @@
+\documentclass[a4paper,11pt,twoside]{article}
+%\documentclass[a4paper,11pt,twoside,se]{article}
+
+\usepackage{UmUStudentReport}
+\usepackage{verbatim}   % Multi-line comments using \begin{comment}
+\usepackage{courier}    % Nicer fonts are used. (not necessary)
+\usepackage{pslatex}    % Also nicer fonts. (not necessary)
+\usepackage[pdftex]{graphicx}   % allows including pdf figures
+\usepackage{listings}
+\usepackage{pgf-umlcd}
+\usepackage{blindtext}
+\usepackage{enumitem}
+\usepackage{scrextend}
+%\usepackage{lmodern}   % Optional fonts. (not necessary)
+%\usepackage{tabularx}
+%\usepackage{microtype} % Provides some typographic improvements over default settings
+%\usepackage{placeins}  % For aligning images with \FloatBarrier
+%\usepackage{booktabs}  % For nice-looking tables
+%\usepackage{titlesec}  % More granular control of sections.
+
+% DOCUMENT INFO
+% =============
+\department{Department of Applied Physics and Electronics}
+\coursename{Linux as Development Environment 7.5 ECTS}
+\coursecode{5EL142 HT-16}
+\title{Assignment 4 - Editors}
+\author{LORENZ GERBER, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
+\date{2016-10-12}
+%\revisiondate{2016-01-18}
+\instructor{Sven Rönnbäck, Björne A Lindberg}
+
+
+% DOCUMENT SETTINGS
+% =================
+\bibliographystyle{plain}
+%\bibliographystyle{ieee}
+\pagestyle{fancy}
+\raggedbottom
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+%\graphicspath{{images/}}   %Path for images
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{listing}{thp}{lop}
+\floatname{listing}{Listing}
+
+
+
+% DEFINES
+% =======
+%\newcommand{\mycommand}{<latex code>}
+
+% DOCUMENT
+% ========
+\begin{document}
+\lstset{language=C}
+\maketitle
+\thispagestyle{empty}
+\newpage
+%\tableofcontents
+%\thispagestyle{empty}
+%\newpage
+
+\clearpage
+\pagenumbering{arabic}
+
+\section{Editors}
+The current text was written in `emacs' about how to use `nano'. Below follow the Q\&A.
+
+\begin{enumerate}
+
+\item \textbf{Change between work/edit and command mode} In nano there is no separation between edit and command mode. A menu bar on the two lowest screen line shows the most important commands. Most of them are invoked by pressing a modifier key (Ctrl or Alt) and a normal character/symbol key. 
+  
+
+\item \textbf{Start and quit editor} Nano is invoked by calling \textit{nano} on the command line. A number of flags can be set on invocation. They are documented on the man pages. To quit the program, Ctrl-X is pressed. Depending whether there are unsaved changes, a dialog for saving edits will appear before the program actually quits.  
+
+\item \textbf{Create new, open and save text files}
+  A new file can be created by opening nano without a file name as argument. The file get's created on writing out by CTRL-O, which will prompt for a file name to save to. In the same way, an open file can be saved to a new name by Ctrl-O and entering a new filename. When no new filename is provided, Ctrl-O is also the ordinary save command. New files can also be created by providing the new name as argument to nano on startup. 
+
+  
+\item \textbf{Write ordinary text} Writing text is as expected. As there is no command mode, writing plain text is straight forward. From almost all menu dialogs, one can get back to the main screen for text entry/editing by Ctrl-c. 
+  
+\item \textbf{Navigate between various parts of a text} There are most of the basic navigation commands for pure text editing available. Below follows a selection of commonly used navigation shortcuts:
+  \begin{itemize}
+    \item Ctrl \_ Go to line and column number
+    \item Ctrl Y Go one screen up
+    \item Ctrl V Go one screen down
+    \item Alt \ Go to first line of file
+    \item Alt / Go to last line of the file
+    \item ALT ] Go to the matching bracket
+    \item Ctrl B Go back one character
+    \item Ctrl F Go forward one character
+    \item Alt Space Go forward one word
+    \item Ctrl Space Go back one word
+    \item Ctrl A Go to the beginning of the current line
+    \item Ctrl E Go to the end of the current line
+    \item Ctrl P Go to the previous line
+    \item Ctrl N Go to the next line
+    \item Alt ( Go to the beginning of the paragraph
+    \item Alt ) Go to the end of the paragraph
+    \item Alt - Scroll screen up one line without moving the cursor
+    \item Alt + Scroll down one line without moving the cursor
+\end{itemize}
+  
+
+  
+\item \textbf{Cut, copy and paste} Looking at the command list from Help (Ctrl-G) the possibilities seem quite limited. There is no clear description for user selected range to do copy/paste, just cut and paste. However, looking at some forum or simply trying out showed that Ctrl-\^ followed by Alt-6 allows to copy the selected area (Start selection by Ctrl-\^, end selection by Alt-6) to the buffer and then paste it by Ctrl-U. Cutting a whole like is Ctrl-K and uncutting/pasting as mentioned before Ctrl-U. Cutting from the current cursor position until file end is Alt-T.
+    
+\item \textbf{Find and replace}
+Search a string or a regular expression by Ctrl-W, replace a string or a regular expression Ctrl-\ and repeat the last search is Alt-W.
+
+\end{enumerate}
+
+\section{ASCII}
+ASCII stands for American Standard Code for Information Interchange. It encodes 128 symbols to number values. Beside the normal `printed' characters, there are also 33 control characters for example for `end of line', `carriage return' etc.  
+
+\section{Hexeditors}
+To change my name in a hexeditor to capitalized letters, I looked up the hex values of the respective letters in an ASCII table and edited the file.
+
+
+\addcontentsline{toc}{section}{\refname}
+%\bibliography{references}
+
+\end{document}

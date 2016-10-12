@@ -67,70 +67,328 @@
 
 \section{Describing Basic Linux Commands} 
 
-\begin{labeling}{\textbf{man -k} \textit{expression}}
-\item [\textbf{man} \textit{keyword}] display manual pages for a specific command 
-\item [\textbf{man -k} \textit{expression}] display the short descriptions that contain a regex match to \textit{expression}
-\item [man -f \textit{keyword}] display the short descriptions that contain the \textit{keyword} 
+\begin{labeling}{\textbf{man -k \textit{expression}}}
+\item [\textbf{man \textit{keyword}}] display manual pages for a specific command 
+\item [\textbf{man -k \textit{expression}}] display the short descriptions that contain a regex match to \textit{expression}
+\item [\textbf{man -f \textit{keyword}}] display the short descriptions that contain the \textit{keyword} 
 \end{labeling}
 
-\subsubsection{\textbf{info} \textit{topic}- display info document}
-textbf{infor -} \textit{topic} \\
-\textbf{cp} - copy a file or directory \\
-\textbf{mv} - move a file or directory \\
-\textbf{mkdir} - make a directory 
-\textbf{rmdir} - remove an empty directory
-\textbf{rm} - remove files
-\textbf{find} - search files
-\textbf{cd} - change directory
-\textbf{pwd} - present working directory
-\textbf{df} - disk free
-\textbf{ps} - processes
-\textbf{du} - disk usage
-\textbf{tar} - archieving multiple files into one
-\textbf{seq} - generate a sequence of numbers
-\textbf{whoami} - display the userid of the current user
-\textbf{users} - user names of currently logged on users at present host
-\textbf{who} - shows the currently logged on users
-\textbf{whereis} - find binary, source and man pages for a specified command
-\textbf{cat} - concatenating files and write to standard out
-\textbf{tee} - allows writing standard input to multiple out 
-\textbf{more} - display text page wise
-\textbf{less} - display multi page text with scrolling
-\textbf{uniq} - match repeated lines, either report or discard
-\textbf{tail} - output the end of files
-\textbf{echo} - display a line of text
-\textbf{which} - find the path to a command
-\textbf{wget} - download files over the network
-\textbf{cut} - print selected parts of lines
-\textbf{grep} - print lines that match a given pattern
-\textbf{sort} - sorting lines
-\textbf{wc} - word count
+\vspace{5mm}
+
+\begin{labeling}{\textbf{info -k \textit{string}}}
+\item [\textbf{info \textit{topic}}] display info document
+\item [\textbf{info -k \textit{string}}] search for \textit{string} in all manuals
+\item [\textbf{info -h}] show help page about info
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{cp -r \textit{source dest}}}
+\item [\textbf{cp \textit{source dest}}] copy a file or directory
+\item [\textbf{cp -r \textit{source dest}}] copy recursively
+\item [\textbf{cp -n \textit{source dest}}] does not overwrite at dest
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{mv -n \textit{source dest}}}
+\item [\textbf{mv \textit{source dest}}] move a file or a directory
+\item [\textbf{mv -n \textit{source dest}}] no-clobber, don't overwrite 
+\item [\textbf{mv -i \textit{source dest}}] ask interactive before overwrite
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{mkdir -m \textit{name}}}
+\item [\textbf{mkdir \textit{name}}] make a directory
+\item [\textbf{mkdir -m \textit{name}}] set file mode using chmod syntax
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{rmdir \textit{directory}}}
+\item [\textbf{rmdir \textit{directory}}] remove empty directory
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{rm -r \textit{file/directory}}}
+\item [\textbf{rm \textit{file}}] remove file
+\item [\textbf{rm -r \textit{file/directory}}] recursively remove \textit{file/directory}
+\item [\textbf{rm -i \textit{file}}] ask interactively before removing
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{find \textit{options startpoint expression}}}
+\item [\textbf{find . \textit{options startpoint expression}}] command to search in the file system
+\item[\textbf{find . \textit{-depth 3}}] an expression global option that defines the depth to search in directories
+\item [\textbf{find . \textit{-type f}}] an expression test option to find normal files  
+\item [\textbf{find . \textit{-exec command}}] an expression action option to execute \textit{command} on each found file
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{cd \textit{/directory}}}
+\item [\textbf{cd \textit{directory}}] shell built-in command to change directory
+\item [\textbf{cd \textit{/directory}}] a trailing slash defines an absolut path
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{pwd}}
+\item [\textbf{pwd }] diplay present working directory
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{df \textit{}}}
+\item [\textbf{df \textit{}}] reports free disk space
+\item [\textbf{df -h \textit{}}] human readable
+\item [\textbf{df -T \textit{}}] print type of disk
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{ps -ax --forest}}
+\item [\textbf{ps }] show processes
+\item [\textbf{ps -ax }] show all process system wide
+\item [\textbf{ps -ax --forest}] show all processes system wide in a tree format
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{du . \textit{-d 2}}}
+\item [\textbf{du . \textit{}}] disk usage calculating from current directory 
+\item [\textbf{du . \textit{-h}}] human readable sizes
+\item [\textbf{du . \textit{-d 2}}] directories deeper than 2 are summarized
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{tar \textit{-cvzf name files}}}
+\item [\textbf{tar \textit{}}] command to store or extract files from a tar tape/disk archieve
+\item [\textbf{tar \textit{-xvzf name}}] extract the compressed \textit{name}.tar.gz archieve to the current directory   
+\item [\textbf{tar \textit{-cvzf} name files}] create \textit{name}.tar.gz from \textit{files}
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{seq \textit{-s ' '} 5 .5 10}}
+\item [\textbf{seq 10}] generate sequence of numbers
+\item [\textbf{seq 5 10}] sequence from 5 to 10, default increment by 1
+\item [\textbf{seq \textit{-s ' '} 5 .5 10}] sequence from 5 to 10, increment by 0.5, separate numbers by a whitespace, default is \textbackslash n
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{whoami}}
+\item [\textbf{whoami}] display the name of current user
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{users}}
+\item [\textbf{users}] user names of currently logged on users at present host
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{who -a}}
+\item [\textbf{who}] show information about currently logged in users
+\item [\textbf{who -a}] show all available information about currently logged in users
+\item [\textbf{who -b}] show last time of system boot
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{whereis -b \textit{command}}}
+\item [\textbf{whereis \textit{command}}] find binary, source and man pages for a specified command
+\item [\textbf{whereis -b \textit{command}}] find path to binaries
+\item [\textbf{whereis -s \textit{command}}] find path to sources
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{cat -A \textit{file ...}}}
+\item [\textbf{cat \textit{file ...}}] concatenates files and writes to std out
+\item [\textbf{cat -A \textit{file ...}}] will write non-printing command characters
+\item [\textbf{cat -n \textit{file ...}}] number all lines
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{tee \textit{file ...}}}
+\item [\textbf{tee \textit{file ...}}] writes stdandard in to standard out and file(s)
+\item [\textbf{tee -a \textit{file ...}}]
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{more -10 \textit{file}}}
+\item [\textbf{more \textit{file}}] pager for text files
+\item [\textbf{more -10 \textit{file}}] number of lines to show on each page (10 in this case)
+\item [\textbf{more -s \textit{file}}] combine multiple blank lines into one
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{less -E \textit{file}}}
+\item [\textbf{less \textit{file}}] advanced pager for text files
+\item [\textbf{less -N \textit{file}}] print line numbers 
+\item [\textbf{less -E \textit{file}}] exit when reaching EOF
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{uniq -c \textit{file}}}
+\item [\textbf{uniq \textit{file}}] matches repeated lines to either report or discard
+\item [\textbf{uniq -c \textit{file}}] show count of row repetitions 
+\item [\textbf{uniq -i \textit{file}}] ignore case for comparison
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{tail -c1024 \textit{file}}}
+\item [\textbf{tail \textit{file}}] display last 10 lines of a file
+\item [\textbf{tail -n20 \textit{file}}] show the last 20 lines of a file
+\item [\textbf{tail -c1024 \textit{file}}] show the last 1024 bytes of a file
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{echo \textit{text}}}
+\item [\textbf{echo \textit{text}}] display a line of text
+\item [\textbf{echo -n \textit{text}}] no trailing newline
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{which \textit{command}}}
+\item [\textbf{which \textit{command}}] find the path to a command
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{wget -nd \textit{URL}}}
+\item [\textbf{wget \textit{URL}}] network file downloader
+\item [\textbf{wget -nd \textit{URL}}] do not create recursive directory structure
+\item [\textbf{wget -b \textit{URL}}] go to background after download start 
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{cut -d- -f4-6 \textit{file}}}
+\item [\textbf{cut \textit{file}}] print select parts of lines (characters, fields) from a file or stdin
+\item [\textbf{cut -c1-4\textit{file}}] cut and show from each line character 1 to 4 of file
+\item [\textbf{cut -d- -f4-6 \textit{file}}] cut and display field 4 to 6 when '-' is the delimiter in \textit{file}
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{grep \textit{pattern file}}}
+\item [\textbf{grep \textit{pattern file}}] print lines that match a pattern of interest
+\item [\textbf{grep -F \textit{pattern file}}] fixed string pattern (not regex)
+\item [\textbf{grep -i \textit{pattern file}}] ignore case
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{sort -d \textit{file ...}}}
+\item [\textbf{sort \textit{file ...}}] sort lines of \textit{file(s)}
+\item [\textbf{sort -d \textit{file ...}}] dictonary order
+\item [\textbf{sort -b \textit{file ...}}] ignore leading blanks
+\end{labeling}
+
+\vspace{1mm}
+
+\begin{labeling}{\textbf{wc \textit{file}}}
+\item [\textbf{wc \textit{file}}] lines, word and chars count
+\item [\textbf{wc -c \textit{file}}] chars count
+\item [\textbf{wc -L \textit{file}}] max line length
+\end{labeling}
+
+\vspace{1mm}
+
 
 \section{User Access}
+The `root' user has always access. 
 
 \section{Users and Groups}
+\begin{enumerate}
+\item Users \textit{aandersson, ppettersson, lpersson} were created  with \textbf{adduser}
+\item groups \textit{datagroup, admingroup, marketgroup} were created with \textbf{groupadd}
+\item subdirectories \textit{data, admin, market} were created with \textbf{mkdir}
+\item directories permissions were set to 770 by \textbf{chmod}
+\item directories ownership were set to root by \textbf{chown}
+\item groups were assigned to the respective directories using \textbf{chown}
+\item users were assigned to the requested groups using \textbf{gpasswd -a \textit{user group}}
+\end{enumerate}
+
+Below follows a screencopy from the directories:
+\begin{verbatim}
+drwxrwx--- 2 root    admingroup  4,0K aug 26 23:34 admin
+drwxrwx--- 2 root    datagroup   4,0K aug 27 11:25 data
+drwxrwx--- 2 root    marketgroup 4,0K aug 26 23:34 market
+\end{verbatim}
+
+Screen copy of \textit{/etc/passwd}:
+\begin{verbatim}
+aandersson:x:1001:1001:Adam Andersson,,,:/home/aandersson:/bin/bash
+lpersson:x:1002:1002:Lisa Persson,,,:/home/lpersson:/bin/bash
+ppettersson:x:1003:1003:Peter Pettersson,,,:/home/ppettersson:/bin/bash  
+\end{verbatim}
+
+Screen copy of \textit{/etc/group}:
+\begin{verbatim}
+aandersson:x:1001:
+lpersson:x:1002:
+ppettersson:x:1003:
+datagroup:x:1004:ppettersson,aandersson
+admingroup:x:1005:lpersson,aandersson
+marketgroup:x:1006:ppettersson,lpersson
+\end{verbatim}
+
+
 
 
 \section{Filesystem}
-/boot
-/etc
-/sbin
-/bin
-/usr
-/var
-/dev
-/home
+\begin{labeling}{home}
+\item [/boot] contains files to boot the system up
+\item [/etc] system wide configuration files
+\item [/sbin] system administration binary exectuables
+\item [/bin] binary executables for all users
+\item [/usr] user binary executables, source, doc, and libraries for more complex programs
+\item [/var] variable files, such as logs, lock files, mails, print queues
+\item [/dev] device files such as terminals, usb's and other interfaces
+\item [/home] user home directory
+\end{labeling}
+
+
+  
+  
+
 
 \section{Pipes}
-a. ls | sort
-b. uniq | wc
-c. users| uniq | sort
-d. seq | tee test1 test2
-
+\begin{enumerate}
+\item \textbf{find . +1M | sort}
+\item \textbf{sort adress.txt | uniq | wc -l}
+\item \textbf{who | cut -d' ' -f1 | uniq | sort}
+\item \textbf{seq 1 10 | tee test1 test2}
+\end{enumerate}
+  
 \section{streams}
+\begin{labeling}{ls /hh 2> lserror2.txt}
+\item [ls / < lsoutput.txt] redirects the standard out from list directory of root (/) into the file lsoutput.txt. No screenoutput.
+\item [ls /hh > lsoutput2.txt] redirects the standard out from list directory of /hh into the file lsoutput2.txt. As there doesn't exist such a directory, lsoutput2.txt is empty while an error message is displayed on the screen.
+\item [ls / 2> lserror.txt] Standard error of listing the root directory is redirected into the file lserror.txt. As root exists, no error message is produced hence lserror.txt is an empty file. The directory listing is displayed on the screen.
+\item [ls /hh 2> lserror2.txt] Standard error of listing /hh is redirected into the file lserror2.txt. Hence lserror2.txt contains the error message \textit{ls: cannot access '/hh': No such file or directory}.
+\end{labeling}
+
+By default STDIN reads from the keyboard. Alternatively but also by default can a program use the stream from a pipe operator | as STDIN. The control character for STDIN is `<'. It can be used to read STDIN for example from a file. STDOUT is by default to the terminal. The control character `>' is used to divert STDOUT to a file. The file is in this case always new created. The control character sequence `>>' can be used to append to an existing file. The pipe operator `|' can be used to divert STDOUT to another command/program. 
 
 
 \addcontentsline{toc}{section}{\refname}
-\bibliography{references}
+%\bibliography{references}
 
 \end{document}
