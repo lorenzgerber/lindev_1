@@ -23,11 +23,11 @@
 \department{Department of Applied Physics and Electronics}
 \coursename{Linux as Development Environment 7.5 ECTS}
 \coursecode{5EL142 HT-16}
-\title{Assignment 4 - Editors}
+\title{Assignment 7 - Various Tools: groff, diff, patch, Awk, sed }
 \author{LORENZ GERBER, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
-\date{2016-11-25}
+\date{2016-11-26}
 %\revisiondate{2016-01-18}
-\instructor{Sven Rönnbäck, Björne A Lindberg}
+\instructor{Sven Rönnbäck, John Berge, Björne A Lindberg}
 
 
 % DOCUMENT SETTINGS
@@ -141,7 +141,7 @@ Lorenz Gerber (lorenzottogerber@gmail.com)
 \section{Diff and Patch}
 \subsection{Common flags for \textit{diff} and \textit{patch}}
 \begin{itemize}
-\item \textbf{diff -r} recursive, is used to dive recursively down in subdirectories and compare the files there.
+\item \textbf{diff -r} recursive, is used to climb recursively down in subdirectories and compare the files.
 \item \textbf{diff -u} the unified display format. It is a variation of the context format which omits reduanant context lines hence it is very compact. 
 \item \textbf{diff -N} Does treat inexisting files as empty, hence diff will show the whole existing file as difference
 \item \textbf{patch -p\textit{number} / --strip=\textit{number}} strips parts of the path from files contained in the patch. By default, only the filename is returned. \verb+-p0+ returns the whole path, \verb+-p1+ strips one slash, \verb+-p2+ strips two slashes etc.  
