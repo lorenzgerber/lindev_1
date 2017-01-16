@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -z $1 ] ; then
+    echo "Enter username: "
+    read u
+else
+    u=$1
+fi
+
+
+who | awk '{print $1}' |
+    while read user;
+    do [ "$u" = "$user" ] && exit 0;
+    done
+
+
+
+
