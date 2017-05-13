@@ -1,0 +1,10 @@
+Compiling instructions:
+
+- plus_2:
+  gcc -Wall -std=c11 -o plus_2 my_add.c
+
+- plus_x:
+  gcc -Wall -std=c11 -o plus_x my_add_x.c
+
+- adder:
+  gcc -Wall -std=c11 -o adder main.c my_add.c

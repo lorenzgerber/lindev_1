@@ -1,0 +1,7 @@
+Which directories are suitable to copy a program to?
+
+- If the program shall be callable from any directory, the runnable
+  file has to be copied to a directory that is on the search path.
+- I checked the search path with echo $PATH and decided to copy the
+  runnable to /usr/bin/.
+ 
