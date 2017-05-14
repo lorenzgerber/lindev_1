@@ -33,10 +33,40 @@ if ./program1 | grep -Pzoq 'A\nB\nC\nD\n'
 then
   echo -e "${GREEN}SUCCESS!"
 else
-  echo -e "${RED}FAIL!"
+  echo -e "${RED}FAIL! Program did not produce expected output."
 fi
 
+echo -e "${NC} - Checking sanity of 'make install'"
+sudo make install &>/dev/null
+if [ -e /usr/bin/program1 ]
+then
+  echo -e "${GREEN}SUCCESS!"
+else
+  echo -e "${RED}FAIL! 'program1' not found in /usr/bin."
+fi
+
+echo -e "${NC} - Checking sanity of 'make uninstall'"
+sudo make uninstall &>/dev/null
+if ! [ -e /usr/bin/program1 ]
+then
+  echo -e "${GREEN}SUCCESS!"
+else
+  echo -e "${RED}FAIL! 'program1' not found in /usr/bin."
+fi
+
+
+echo -e "${NC} - Checking for removal of .o and executable files upon 'make clean'"
+make clean &>/dev/null
+count=`ls -1 *.o 2>/dev/null | wc -l`
+if [ $count != 0 ]
+then
+  echo -e "${RED}FAIL! Not all .o and/or executalbes removed."
+else
+  echo -e "${GREEN}SUCCESS!"
+fi
+
+
 echo -e ${NC}
-make clean
+make clean &>/dev/null
 
 cd ..
