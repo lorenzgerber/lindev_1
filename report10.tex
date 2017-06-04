@@ -75,6 +75,21 @@ Short report with a reflection about the work. What went well what was difficult
 \section{Check5D}
 
 \section{Test Suite for Electronics Applicaiton}
+\begin{verbatim}
+checkUsage()
+createTempFile
+run electrotest as background process and divert output into tempfile
+get PID from background process
+sleep for a short time
+if backprocess still runs
+    outOfTime or doesNotCatchException
+    kill background process
+else
+    wait PID
+    store exit status
+    check exit status
+fi 
+\end{verbatim}
 
 \addcontentsline{toc}{section}{\refname}
 %\bibliography{references}
