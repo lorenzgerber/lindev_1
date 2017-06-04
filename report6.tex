@@ -25,7 +25,7 @@
 \coursecode{5EL142 HT-16}
 \title{Assignment 6 - Libraries}
 \author{LORENZ GERBER, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
-\date{2016-11-03}
+\date{2016-11-07}
 %\revisiondate{2016-01-18}
 \instructor{Sven Rönnbäck, Björne A Lindberg}
 
@@ -67,7 +67,7 @@
 
 \section{Library `libpower'}
 \subsection{Function and Usage}
-I implemented the library `libpower' and small program to test it's functionality. The usage of the test program is straight forward as it does not need any command line arguments. After calling the program (which we here can call `test'), a short text-based user menu is shown to access the two functions included in the library. The two functions are: 1. calculate power in a circuit from voltage and resistance and 2. calculate power in a circuit from voltage and and current. After choosing the function by entering either `R' or `I' and pressing the `enter' key, the program will query for the respective values and then calculate power. The result is printed to stdout.  
+I implemented the library `libpower' and small program to test it's functionality. The usage of the test program is straight forward as it does not need any command line arguments. After calling the program (which we here can call `test'), a short text-based user menu is shown to access the two functions included in the library. The two functions are: 1. calculate power in a circuit from voltage and resistance and 2. calculate power in a circuit from voltage and current. After choosing the function by entering either `R' or `I' and pressing the `enter' key, the program will query for the respective values and then calculate power. The result is printed to stdout.  
 
 \subsection{Algorithm}
 In the case of `libpower' there was not much of an algorithm to implement. The functions could be written directly as arithmetic expressions and needed also no special library.  
@@ -80,37 +80,37 @@ gcc -shared -o libpower.so libpower.o
 gcc -Wall -std=c11 -c test.c
 gcc -o test test.o -L. -lpower -Wl,-rpath,.
 \end{verbatim}
-First the library is compiled and an object file is generated. Then a shared library file is generated. Now the test program is compiled. Finally the object from the test programm and the shared library are linked in the last gcc call. 
+First the library is compiled and an object file is generated. Then a shared library file is generated. Now the test program is compiled. Finally the object from the test programme and the shared library are linked in the last gcc call. 
 
 \subsubsection{Used Compiler / Linker Flags}
-In all compile steps, \verb+Wall+ and \verb+-std=c11+ is used. \verb+-Wall+ is the flag to enable all warnings while \verb+-std=c11+ requires checking of the code according to the ISO C11 standard. The \verb+-c+ flag instructs gcc to stop after compilation with object files. With the \verb+-o +\textit{file} flag an output file can be indicated. The \verb+-L.+ option states the search path for libraries. The \verb+-Wl+ flag is used to pass coma separated options to the linker program. In the current case, this is the option \verb+rpath+ to add a directory to the runtime library search path. Here the working directory is indicated.
+In all compile steps, \verb+Wall+ and \verb+-std=c11+ is used. \verb+-Wall+ is the flag to enable all warnings while \verb+-std=c11+ requires checking of the code according to the ISO C11 standard. The \verb+-c+ flag instructs gcc to stop after compilation with object files. With the \verb+-o +\textit{file} flag an output file can be indicated. The \verb+-L.+ option states the search path for libraries. The \verb+-Wl+ flag is used to pass comma-separated options to the linker program. In the current case, this is the option \verb+rpath+ to add a directory to the runtime library search path. Here the working directory is indicated.
    
 \section{`electrotest' and `makefile'}
-We wrote the main program `electrotest' to conform with the output given in the laboration instructions. `electrotest does not take any command line arguments but works interactively. First the user is asked to enter voltage, type of linking (sequence or parallel) and number of components. All user input is handeled with the `fgets' function and a string array `buf'. 
-After the first three questions, the program goes into a $FOR$ loop based on the number of components. Here the user enters the resistances of each component. Then follows the part where the library functions are used to calculate the results. Here we implemented an end of program error handling with `goto' jumps.
+We wrote the main program `electrotest' to conform with the output given in the laboration instructions. `electrotest does not take any command line arguments but works interactively. First the user is asked to enter voltage, type of linking (sequence or parallel) and number of components. All user input is handled with the `fgets' function and a string array `buf'. 
+After the first three questions, the program goes into a $FOR$ loop based on the number of components. Here the user enters the resistances of each component. If the user enters an invalid resistance or hit the enter key without entering any resistance, the $FOR$ loop is ended. Then follows the part where the library functions are used to calculate the results. Here we implemented an end of program error handling with `goto' jumps.
 Dynamic memory allocation is used once in electrotest, namely to reserve space for the resistance values as the number of components is decided at run-time by the user.   
 
 \subsection{Group Members}
-The group memebers where Peter Püschel (libresistance), Stephen Burleigh (libcomponent)  and Lorenz Gerber (libpower). 
+The group members where Peter Püschel (libresistance), Stephen Burleigh (libcomponent) and Lorenz Gerber (libpower). 
 
 \subsection{Usage of the Dynamic Libraries}
 The libraries were made accessible in electrotest by including the header file of each library. In this case, we did not make a header file for `electrotest' hence the includes were stated directly in the main file `electrotest.c'. After including the header files, the functions of each library were available and recognized in the main program.
 
-\subsection{Buidling}
+\subsection{Building}
 As requested in the assignment, the building process was automated using a makefile. The makefile includes 14 targets: all, install, lib, electrotest\_local, electrotest, electrotest.o, libcomponent.so, libresistance.o, libresistance.so, libpower.o, libpower.so, clean and uninstall. `make all' is used to build the program in the working directory while the libraries are copied in new subdirectory called `lib'. `make install' builds `electrotest' and the `libraries' but then copies them to \verb+/usr/bin/+ and \verb+/usr/lib/+ respectively. `make uninstall' removes binaries and libraries from all earlier mentioned locations while `make clean' just cleans up in the working directory. Some \verb+make+ commands may need sudo rights to proceed.
 
-The actual buildprocess works in the same way as described earlier: compiling the libraries using -fPIC into object files, producing shared libraries by using the `-shared' flag, then compiling `electrotest' into an object file and finally linking `electrotest' object file with the dynamic libraries. Here the used flags are \verb+-L.+ to indicate the search path for the libraries then followed by the names of the libraries. Finally the -rpath flag is used to add a run-time library search path for the libraries. This is specific for dynamic libraries.  
+The actual build process works in the same way as described earlier: compiling the libraries using -fPIC into object files, producing shared libraries by using the `-shared' flag, then compiling `electrotest' into an object file and finally linking `electrotest' object file with the dynamic libraries. Here the used flags are \verb+-L.+ to indicate the search path for the libraries then followed by the names of the libraries. Finally the -rpath flag is used to add a run-time library search path for the libraries. This is specific for dynamic libraries.  
 
  
 \section{Collaborative Development}
-After assignment of the group by the supervisor, we had a short chat session on Skype where we decided the rough setup for the project. Peter Püeschel offered to act as project coordinater which everybody agreed on. Then the workpackages where assigned to each member. Initially, we just assigned the libraries and left open who would implement `electrotest' and the makefile. Finally we agreed on an approximate time schedule. The start of the work was about one week into the future. Git was chosen to be the versioning/repository of our choice and Peter offered to setup and administrate the repo. All members had used git before.
-Initially, the work was rathe individual until the became usuable. Then, `electrotest' and the makefile were written in a truely collaborative way. Some testing was conducted in the end until we finally all agreed that the specifications from the assignment were met. 
+After assignment of the group by the supervisor, we had a short chat session on Skype where we decided the rough setup for the project. Peter Püschel was suggested as project coordinator by the supervisor, which everybody agreed on. Then the workpackages where assigned to each member. Initially, we just assigned the libraries and left open who would implement `electrotest' and the makefile. Finally we agreed on an approximate time schedule. The start of the work was about one week into the future. Git was chosen to be the versioning/repository of our choice and Peter offered to set up and administrate the repo. All members had used git before.
+Initially, the work was rather individual until the libraries became usable. Then, `electrotest' and the makefile were written in a truly collaborative way. Some testing was conducted in the end until we finally all agreed that the specifications from the assignment were met. 
 
 \subsection{Account on Current Collaborative Work}
-I happend to choose the most simple library, `libpower'. To make up for that, I wrote large parts of the makefile. Collaborating with the other members worked fine. After an initial chat on skype, we communicated mostly by email reply's to all. In some few cases we also used the commenting function on github. Working with the repository was without any problem. I experienced maybe twice source code conflicts that needed to be resolved, which also worked well. All in all, this lab was a really nice and positive experience.
+I happened to choose the simplest library, `libpower'. To make up for that, I wrote large parts of the makefile. Collaborating with the other members worked fine. After an initial chat on Skype, we communicated mostly by email reply's to all. In a couple of cases we also used the commenting function on github. Working with the repository was without any problem. I experienced maybe twice source code conflicts that needed to be resolved, which also worked well. All in all, this lab was a really nice and positive experience.
 
 \subsection{Large Collaborative Projects}
-In larger project, it would be neccessary to define code style standards to simplify reading each others code. Also it would start to make sense using more advanced versioning features such as branching and pull request. Some sort of task tracker would certainly also be nice.
+In larger project, it would be necessary to define code style standards to simplify reading each others code. Also it would make sense to use more advanced versioning features such as branching and pull request. Some sort of task tracker would certainly also be nice.
 
 \addcontentsline{toc}{section}{\refname}
 %\bibliography{references}

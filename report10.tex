@@ -69,12 +69,26 @@
 Short report with a reflection about the work. What went well what was difficult. Name some limitations of the chosen solution and/or propose some improvements to the provided scripts.
 
 \section{Timetrack}
+Timetracker was implemented using the \verb+case+ statement. The tracker information is stored in a file called time.log. The script handles the cases when there is either a tracker running or not for all three arguments.
+The commmand \verb?date +%s? is used to obtain the seconds since 1970-01-01 00:00:00 UTC. Then \verb?typeset -1? is used to convert and store the value as an integer variable for later arithemtics.
 
 \section{Checkuser}
+Checkuser is a script that checks if a specific user is logged into the system. The user name is given either as command line argument or is queried interactively. \verb+read+ is used to obtain the user input. \verb+awk+ is used to extract usernames of all logged in users from the output of command \verb+who+. The whole process of who, awk and test is lined up with pipe commands.
 
 \section{Check5D}
+Check5D is a script that checks the \verb+make+ build script of exercise 5D. The script tests five different operations:
+\begin{itemize}
+\item \verb+make all+ executes without errors
+\item executables are created
+\item executable execute and return correct result
+\item \verb+make install+ works
+\item \verb+make uninstall+ works
+\item \verb+make clean+ works
+\end{itemize}
 
 \section{Test Suite for Electronics Applicaiton}
+Below for a short pseudo code on how the test suite was implemented.
+
 \begin{verbatim}
 checkUsage()
 createTempFile
