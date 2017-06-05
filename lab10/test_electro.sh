@@ -53,7 +53,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -88,7 +87,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -120,7 +118,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -153,7 +150,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -186,7 +182,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -218,7 +213,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -250,7 +244,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -285,7 +278,6 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
 
@@ -317,6 +309,5 @@ else
   else
       echo -e "\t\t\t\t\t\t\e[31mFAIL"
   fi
-  kill $lastPid 2>/dev/null
   rm $outputfile
 fi
