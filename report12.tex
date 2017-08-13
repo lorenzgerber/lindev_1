@@ -121,15 +121,31 @@ project except for choosing a `C++' template. All the `include' and `Libarary'
 settings were done for the `g++' build toolchain.
 
 Initially the structure of the program was analyzed by debugger runs to step
-through the program. The `time_handler' function was used to find and test the
-suitable functions for implementing the zoom functionality.
+through the program. The `time\_handler' function was used to find and test
+suitable functions for implementing the zoom functionality in regard to mouse
+pointer positioning. Briefly, the pointer position was obtained as absolut
+position on the visible screen (`gdk\_display\_get\_pointer'). Then the `Gdk\_window'
+which in this has the same size as the main application window without the
+window decorations, was obtained using `gtk\_widget\_get\_window'. Finally, the
+size of the Gdk\_window was determined by `gdk\_window\_get\_size'. Knowing the
+fixed size of the `GdkImage' drawing area, the absolut position of the mouse
+pointer when within the GdkImage could be calculated.
 
-Zoom functionality was finally implemented as a single left click for zoom-in
-and single right-click for zoom-out. 
+For the zoom functionality it was established that a GdkImage length and height
+of each 800px corresponds the value `2' in the fractal calculation algorithm. The
+input parameter for the fractal algorithm are the x/y value of the mid-image, which
+then corresponds to 400px/400px in GdkImage screen measures.
 
+Zoom functionality was implemented as a single left click for zoom-in
+and single right-click for zoom-out. During testing, it was found that zoom-out
+should not change the center of the image but rather just zoom-out.
 
+Four different compiler flags (O0, O1, O2, O3, Os) where tested for execution
+speed of the compiled code aswell as for binary size. Settings within
+Eclipse IDE where used to set the compiler flags. As a metric for code
+execution, the `time.h' library was imported and `clock()' was used to measure
+execution time for the first fractal calculated on application startup.
 
-- compiler flags for optimizing code
 \section{Results}
 \subsection{electrotestgtk}
 As mentioned earlier, prior to debugging, the component library had to be
@@ -146,16 +162,72 @@ series, hence the result should indeed be 1. To amend the problem, the test
 function was modified to expect `1' as return value. Now all tests passed
 and the GTK button turns green.
 
-Result part II
+\subsection{mandelbrot}
+The zoom functionality allows zooming in and out of the fractal by simply
+clicking the area of interest for zoom-in. Zoom-out keeps the current location.
+The zoom function makes use of the `zoom' input argument of the `bCalc\_Fractal'
+function. This seems to work fine until a factor of about 4, then the positioning
+seems to become rather sketchy. The in-depth cause for this was not further
+investigated nor was it attempted to correct for it.
+
+\begin{table}[]
+\centering
+\caption{Contains the benchmark values for calculating the first fractal using
+different compiler optimization settings. Further, size of binary is also indicated.}
+\label{tab:benchmark}
+\begin{tabular}{lll}
+flag & mean (sec) & binary size (K) \\ \hline
+O0   & 3.21       & 502   \\
+O1   & 1.01       & 518   \\
+O2   & 0.84       & 521   \\
+O3   & 0.84       & 522   \\
+Os   & 1.38       & 514
+\end{tabular}
+\end{table}
 
 \section{Discussion}
-It was identifed that the `time_handler' function was
-used mostly for `debugging output' to the console, however, it contained a
-number of usefull commands to be used for the zoom function.
+Generally, setting up the grarphical IDE `Eclipse' was straight forward and without
+any problems. I used `Eclipse' already for Lab 10, altough with a external makefile
+setup. Hence in this lab, the only new thing was to set up the libraries and
+includes for linking and compilation. It took a while in the beginning to understand
+which setting reflects which change on the auto-generated makefile. When understood,
+a graphical IDE allows for very quick and simple setup. Eclipse has since some time
+back also the feature (Oomph) that all settings can be written into configuration files so
+that for example a company could deploy a complicated development environment for
+a new employee within minutes. For me the striking advantage of an IDE such as Eclipse
+over a normal text editor or even a more advnaced setup with Emacs is the 'mouse over'
+feature that generate pop-ups, for example over macros, or functions with additional
+information. Also the code completion features are really neat.
 
+\subsection{electrotestgtk}
+Setting up the application from lab 11 in Eclipse was without problems. Using
+Eclipse for developing GTK+ applications seems to be a good choice as it simplifies
+for getting quick information about all the macros. Also graphical debugging feels
+like a serious productivity boos to me. I find this interesting as most of the tools
+and functionality available in Eclipse are basically the same as on the commandline.
+
+
+
+\subsection{mandelbrot}
+The current implementation of zoom functionality in the `mandelbrot' application
+works, but at high zoom ratios there is some problem with the positioning.
+This problem was however already experienced in the beginning when testing the
+`mandelbrot' application manually eg. calling repeatadly with manually adjusting
+the input parameters. As the required zoom functionality basically works (flawless
+in a zoom range below 4), this problem was not investigated further.
+
+The run-time benchmarks showed that compilator optimization could speed up
+the tested calcuation three fold. From optimization level O2 to O3, no significant
+improvement was measured. The size of binary files showed that speed optimized
+ones where slightly larger in sequence of optimization level. The space optimized
+compilation was smaller than the all speed optimized, however still larger than
+the non optimized O0 version.
 
 \section{Conclusion}
-
+I used Eclipse a lot at work with Java, however only a few times so far with
+small one file C exercises. I enjoyed learning how to set up libraries in Eclipse
+and I was amazed how much code completion and mouse-over info boxes can help in
+C development - features that I took for granted in Java environments.   
 
 
 \addcontentsline{toc}{section}{\refname}
