@@ -65,24 +65,94 @@
 \clearpage
 \pagenumbering{arabic}
 
-\section{Introduction}
-The aim of this assignment was to learn about graphical development environments
-such as Eclipse. The assignment consisted of two parts.
+\section{Introduction} The aim of this assignment was to learn about graphical
+development environments such as Eclipse. To achieve certain exposure to
+Eclipse, two practical exercises had to be conducted. First, the GTK+
+electrotest application from lab 11 had to be setup for development in Eclipse
+and extended with a button to run the given test library linumtest.h. Eventual
+bugs had to be found and corrected. For the second part, a C++/GTK+ `Mandelbrot'
+application had to be set up in Eclipse and extended with zoom in/out
+functionality.
 
-What Eclipse is about
+The general idea about `Graphical Ingegrated Development Environments' is to
+provide language tailored, advanced tooling for developing larger software
+projects. Some exampels of such tools are code completion, graphical debugging,
+graphical library managment, dependency checking, versioning etc. Usually, such
+graphical IDE's such as eclipse simply intgerate available console tools with a
+graphical possibility to choose the options.
 
 \section{Method}
-How was Eclipse installed. Which steps to get the code compiling.
-- setup proejct
-- setup gtk compilation and libraries
-- setup own libraries for debugging
-- describe graphical debugging
+Here it was chosen to install `eclipse neon' using the `Oomph' installer. The `Ooomph'
+installer is a separate piece of software that provisions the installation of
+`eclipse' development environments. After startup of `oomph', `Eclipse CDT' the
+eclipse version for C/C++ development is chosen, then the whole IDE is installed
+automatically.
+
+\subsection{electrotestgtk}
+Setup of the electrotestgtk project for development was conducted according to the
+instructions given on the course homepage in the following order:
+\begin{enumerate}
+  \item `Setting up projects in Eclipse'
+  \item `Configuration of Eclipse Projects for GTK+-2.0'
+  \item `Installation and Use of own Libraries in Eclipse'
+\end{enumerate}
+
+The first step, setting up a project was followed as described. For the GTK+-2.0
+configuration, some additional steps were needed that the librarires were found
+correctly. Namely, `/usr/include/gtk-2.0' and `/usr/include/glib.2.0' had to be
+added in `Properties' -> `C/C++ Build' -> `Settings' ->  `Cross GCC compiler' ->
+`includes'. Similar, `/usr/share/glib-2.0' was added in `Properties' -> `C/C++
+Build' ->  `Settings' -> `Cross GCC Linker'-> `Libraries'.
+
+Installation of own libraries worked fine according the instructions. Prior to
+installation, new library versions with debugger flag (-g) set were generated.
+
+After including the linumtest library, it was found that the component library
+did not adhere to the given function names, hence, this was corrected. Then
+the button and a callback function was added to the the electrotestgtk application.
+
+Debugging was conducted by graphically setting breakpoints, starting the debug
+process by clicking the respective button and then using `step over' and/or
+`step into' functionality while inspecting the values of variables.
+
+\subsection{Mandelbrot}
+Setting up of the Mandelbrot project was correspondingly to the `electrotestgtk'
+project except for choosing a `C++' template. All the `include' and `Libarary'
+settings were done for the `g++' build toolchain.
+
+Initially the structure of the program was analyzed by debugger runs to step
+through the program. The `time_handler' function was used to find and test the
+suitable functions for implementing the zoom functionality.
+
+Zoom functionality was finally implemented as a single left click for zoom-in
+and single right-click for zoom-out. 
+
+
+
 - compiler flags for optimizing code
 \section{Results}
-Result part I
+\subsection{electrotestgtk}
+As mentioned earlier, prior to debugging, the component library had to be
+recompiled with the correct function names. Then the linumtest program was
+run. It run without crash, however the test results indicated an error
+in the component library. Now the debugger was used to step trough the code
+and analyze the it's function. For lab 6, I was in charge of another library,
+so I was not fully aware of how the component library works. The test failed
+in the `bTestComponent' function. On stepping through, it was found that the
+second call to `e\_resistance' with the input parameter `100' expects a return
+value of `2', however e\_resistance returns 1, hence the test fails. According
+to my understanding of how E12 resistances are calculated, 100 is part of the
+series, hence the result should indeed be 1. To amend the problem, the test
+function was modified to expect `1' as return value. Now all tests passed
+and the GTK button turns green.
+
 Result part II
 
 \section{Discussion}
+It was identifed that the `time_handler' function was
+used mostly for `debugging output' to the console, however, it contained a
+number of usefull commands to be used for the zoom function.
+
 
 \section{Conclusion}
 
