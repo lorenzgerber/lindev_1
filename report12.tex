@@ -25,7 +25,7 @@
 \coursecode{5EL142 HT-16}
 \title{Assignment 12 - Graphical Development Environments - Eclipse }
 \author{Lorenz Gerber, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
-\date{2017-08-08}
+\date{2017-08-13}
 %\revisiondate{2016-01-18}
 \instructor{Sven Rönnbäck, John Berge, Björne A Lindberg}
 
@@ -166,9 +166,7 @@ and the GTK button turns green.
 The zoom functionality allows zooming in and out of the fractal by simply
 clicking the area of interest for zoom-in. Zoom-out keeps the current location.
 The zoom function makes use of the `zoom' input argument of the `bCalc\_Fractal'
-function. This seems to work fine until a factor of about 4, then the positioning
-seems to become rather sketchy. The in-depth cause for this was not further
-investigated nor was it attempted to correct for it.
+function.
 
 \begin{table}[]
 \centering
@@ -209,13 +207,6 @@ and functionality available in Eclipse are basically the same as on the commandl
 
 
 \subsection{mandelbrot}
-The current implementation of zoom functionality in the `mandelbrot' application
-works, but at high zoom ratios there is some problem with the positioning.
-This problem was however already experienced in the beginning when testing the
-`mandelbrot' application manually eg. calling repeatadly with manually adjusting
-the input parameters. As the required zoom functionality basically works (flawless
-in a zoom range below 4), this problem was not investigated further.
-
 The run-time benchmarks showed that compilator optimization could speed up
 the tested calcuation three fold. From optimization level O2 to O3, no significant
 improvement was measured. The size of binary files showed that speed optimized
@@ -227,7 +218,21 @@ the non optimized O0 version.
 I used Eclipse a lot at work with Java, however only a few times so far with
 small one file C exercises. I enjoyed learning how to set up libraries in Eclipse
 and I was amazed how much code completion and mouse-over info boxes can help in
-C development - features that I took for granted in Java environments.   
+C development - features that I so far only took for granted in Java development
+environments.
+
+I did only see the document `Hints on implementing Mandelbrot Fractal' after I
+already finished my version. Of course that is my fault, but if you want to improve
+something in the documentation, I think you could mention in the `Övning 12
+Grafiska Utvecklingsmiljöer' document that there are additional documents related
+to the `mandelbrot' implementation. Then again, the lab was on a fair level
+even without the hints. I got some version running quite quick, but it took a
+while until I realized that I had to apply a scaling factor. Without it, the
+zooming got with every step of zoom more and more sensitive on choosing the
+zoom spot. As long as one stayed close to the image center it worked. Finally,
+after having found the but, zooming in and out the Mandelbrot kept me playing
+happily for at least half an hour (smile). That's what I call a rewarding
+exercise, really nice.
 
 
 \addcontentsline{toc}{section}{\refname}

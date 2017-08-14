@@ -1,0 +1,80 @@
+\documentclass[a4paper,11pt,twoside]{article}
+%\documentclass[a4paper,11pt,twoside,se]{article}
+
+\usepackage{UmUStudentReport}
+\usepackage{verbatim}   % Multi-line comments using \begin{comment}
+\usepackage{courier}    % Nicer fonts are used. (not necessary)
+\usepackage{pslatex}    % Also nicer fonts. (not necessary)
+\usepackage[pdftex]{graphicx}   % allows including pdf figures
+\usepackage{listings}
+\usepackage{pgf-umlcd}
+\usepackage{blindtext}
+\usepackage{enumitem}
+\usepackage{scrextend}
+%\usepackage{lmodern}   % Optional fonts. (not necessary)
+%\usepackage{tabularx}
+%\usepackage{microtype} % Provides some typographic improvements over default settings
+%\usepackage{placeins}  % For aligning images with \FloatBarrier
+%\usepackage{booktabs}  % For nice-looking tables
+%\usepackage{titlesec}  % More granular control of sections.
+
+% DOCUMENT INFO
+% =============
+\department{Department of Applied Physics and Electronics}
+\coursename{Linux as Development Environment 7.5 ECTS}
+\coursecode{5EL142 HT-16}
+\title{Assignment 13 - Debian Package Handling}
+\author{Lorenz Gerber, 20161202-2033 ({\tt{lorenzottogerber@gmail.com}})}
+\date{2017-08-13}
+%\revisiondate{2016-01-18}
+\instructor{Sven Rönnbäck, John Berge, Björne A Lindberg}
+
+
+% DOCUMENT SETTINGS
+% =================
+\bibliographystyle{plain}
+%\bibliographystyle{ieee}
+\pagestyle{fancy}
+\raggedbottom
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+%\graphicspath{{images/}}   %Path for images
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{listing}{thp}{lop}
+\floatname{listing}{Listing}
+
+
+
+% DEFINES
+% =======
+%\newcommand{\mycommand}{<latex code>}
+
+% DOCUMENT
+% ========
+\begin{document}
+\lstset{language=C}
+\maketitle
+\thispagestyle{empty}
+\newpage
+%\tableofcontents
+%\thispagestyle{empty}
+%\newpage
+
+\clearpage
+\pagenumbering{arabic}
+
+\section{Introduction}
+This lab was about creating Debian packages from the application written for
+lab 6 and lab 11 respectively.
+
+\section{Method}
+\subsection{Tools}
+\subsection{Description}
+
+
+\addcontentsline{toc}{section}{\refname}
+%\bibliography{references}
+
+\end{document}
