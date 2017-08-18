@@ -233,6 +233,10 @@ and uninstalled using:
 sudo dpkg -r libelectro1
 \end{verbatim}
 
+\subsection{electrotest}
+gcc -Wall -o electrotest electrotest.o -lelectro -lm -L/usr/lib
+had to make an addtional symbolic link libelectro.so to libelectro.so.1.0.1
+
 
 
 \addcontentsline{toc}{section}{\refname}
