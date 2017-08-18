@@ -14,7 +14,7 @@ lib: libpower.so libresistance.so libcomponent.so
 electrotest_local: electrotest.o libresistance.so libpower.so libcomponent.so
 	mkdir ./lib
 	mv libresistance.so libpower.so libcomponent.so ./lib
-	$(CC) $(CFLAGS) -o electrotest electrotest.o -L./lib -lresistance -lpower -lcomponent -Wl,-soname,-rpath,./lib
+	$(CC) $(CFLAGS) -o electrotest electrotest.o -L./lib -lresistance -lpower -lcomponent -Wl,-rpath,./lib
 
 electrotest: electrotest.o libresistance.so libpower.so libcomponent.so
 	mv libresistance.so libpower.so libcomponent.so /usr/lib
