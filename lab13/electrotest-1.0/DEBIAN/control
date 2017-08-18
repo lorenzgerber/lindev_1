@@ -1,0 +1,10 @@
+Package: electrotest1
+Version: 1.0-1
+Section: electronics
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.2.1), libelectro1 (>= 1.0-1)
+Maintainer: L. Gerber <lorenz.gerber@provement.se>
+Description: shell application to calculate
+ e12 replacement resistance values.
+ 
