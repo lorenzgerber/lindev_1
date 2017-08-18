@@ -297,6 +297,24 @@ currently no bugs known
 Lorenz Gerber (lorenzottogerber@gmail.com)
 \end{verbatim}
 
+\subsection{electrotestgtk}
+To package `electrotestgtk' basically the same procedure as for `electrotest'
+was followed except that there are a whole range of dependencies to include for
+GTK+-2.0. First it was attempted to use \verb+ldd electrotestgtk+ but this
+resulted in a list of about 50 libraries and felt unreasonable to write into
+the package control file. It was assumed that most of the libraries should get
+included as downstream libraries of a few top GTK+-2.0 related libraries. Hence
+\verb+pkg-config gtk+-2.0 --libs+ gave a shortlist of libraries: libgtk-x11.2.0,
+libgdk-x11-2.0, libpangocairo-1.0, libatk-1.0, libcairo, libgdk\_pixbuf-2.0,
+libgio-2.0, libpangoft2-1.0, libpango-1.0, libgobject-2.0, libglib-2.0, libfontconfig
+and libfreetype.
+
+After including these in the control file, and updating the respective files
+(copyright, changelog.Debian.gz, man-pages, binary), the package could be built
+in the same way as `electrotest'.
+
+
+
 
 
 
