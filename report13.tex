@@ -175,6 +175,35 @@ E: libelectro1: debian-changelog-file-missing
 E: libelectro1: no-copyright-file
 \end{verbatim}
 
+The first error relates to the debugging symbols left in the binary as
+the library was compiled with the `g' flag. In some documentation, it is
+advised to leave debugging symbols. For real Debian packages and productive
+code, there would be the possibility for two versions of the same library,
+a stripped one and a development library with the debugging symbols left.
+Here, for testing, the symbols where stripped using:
+
+\begin{verbatim}
+objcopy --strip-debug --strip-unneeded libelectro.so.1.0.1
+\end{verbatim}
+
+The changelog file had to be gzipped with the parameters \verb+-n -9+. Lintian
+is very peculiar about the format of the changelog file. The `ITM close bug'
+issue still shown in `linitan'  can not be mended as it is a mechanism used
+when a package is developed to be included in the debian distribution: Lintian
+recognizes that the changelog only contains one entry, hence it assumes a new
+package. New packages have to be announced by filing a bug-report in the ITM
+system. Then the bug number has to be mentioned in the first entry to automatically
+close it. The following is the example text for the changelog file to be situated
+in \verb+usr/share/doc/electrolib1/+:
+\begin{verbatim}
+libelectro1 (1.0-1) UNRELEASED; urgency=low
+
+  * Initial release.
+  Not intended to be included in Debian, hence closes no initial bug.
+
+ -- Lorenz Gerber <lorenz.gerber@provement.se>  Fri, 18 Aug 2017 8:08:00 +0000
+\end{verbatim}
+
 The following copyright file was added in
 \verb+libelectro-1.0/usr/share/doc/libelectro1/+:
 \begin{verbatim}
@@ -207,24 +236,8 @@ License: GPL-2+
  `/usr/share/common-licenses/GPL-2'.
 \end{verbatim}
 
-The changelog file had to be gzipped with the parameters \verb+-n -9+. Lintian
-is very peculiar about the format of the changelog file. The `ITM close bug'
-issue still shown in `linitan'  can not be mended as it is a mechanism used
-when a package is developed to be included in the debian distribution: Lintian
-recognizes that the changelog only contains one entry, hence it assumes a new
-package. New packages have to be announced by filing a bug-report in the ITM
-system. Then the bug number has to be mentioned in the first entry to automatically
-close it. The following is the example text for the changelog file to be situated
-in \verb+usr/share/doc/electrolib1/+:
-\begin{verbatim}
-libelectro1 (1.0-1) UNRELEASED; urgency=low
+Now `lintian' indicated that the package was clean. It was then installed using:
 
-  * Initial release.
-  Not intended to be included in Debian, hence closes no initial bug.
-
- -- Lorenz Gerber <lorenz.gerber@provement.se>  Fri, 18 Aug 2017 8:08:00 +0000
-\end{verbatim}
-Now `lintian' indicates that the package is clean. It can now be installed using:
 \begin{verbatim}
 sudo dpkg -i libelectro.so-1.0-1_amd64.deb
 \end{verbatim}
@@ -234,8 +247,57 @@ sudo dpkg -r libelectro1
 \end{verbatim}
 
 \subsection{electrotest}
+First, it was tested whether electrotest could be build linking against the
+shared library provided in the debian package libelectro1. Unfortunately, this
+was not the case. It was established that there was another symbolic link in
+the library package needed: from `libelectro.so' to `libelectro.so.1.0.1'.
+Then electrotest compiled and could be run:
+\begin{verbatim}
+gcc -Wall -std=c11 -pendantic -c electrotest.c
 gcc -Wall -o electrotest electrotest.o -lelectro -lm -L/usr/lib
-had to make an addtional symbolic link libelectro.so to libelectro.so.1.0.1
+\end{verbatim}
+
+The same steps as for the library were needed to build a Debian package for
+electrotest. First, the directory tree was created. Here the binary was copied
+into `electrotest-1.0/usr/bin'. `electrotest-1.0/DEBIAN' only contains the `control'
+file which was modified accordingly:
+\begin{verbatim}
+Package: electrotest1
+Version: 1.0-1
+Section: electronics
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.2.1), libelectro1 (>= 1.0-1)
+Maintainer: L. Gerber <lorenz.gerber@provement.se>
+Description: shell application to calculate
+ e12 replacement resistance values.
+\end{verbatim}
+Further, `electrotest-1.0/usr/share/doc/electrotest1/' contains the files
+`copyright' and `changelog.Debian.gz' which were also adapted. Further, `lintian'
+hinted the need for man pages. They were created in `electrotest-1.0/usr/share/man/man1/':
+\begin{verbatim}
+.\" Manpage for electrotest1.
+.\" Contact lorenzottogerberls@gmail.com to correct errors or typos.
+.TH ELECTROTEST 1 "18 August 2017"
+.SH NAME
+electrotest \- shell program to calculate e12 replacement resistances
+.SH SYNOPSIS
+.B electrotest
+.SH DESCRIPTION
+Interactively queries the parameters to determines e12 replacement resistances.
+.SH RETURN VALUE
+exit status
+.SH CONFORMING TO
+C11
+.SH BUGS
+currently no bugs known
+.SH SEE ALSO
+.BR libelectro(1)
+.SH AUTHOR
+Lorenz Gerber (lorenzottogerber@gmail.com)
+\end{verbatim}
+
+
 
 
 
