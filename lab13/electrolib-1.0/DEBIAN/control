@@ -1,0 +1,10 @@
+Package: electrolib1
+Version: 1.0-1
+Section: libs
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.2.1)
+Maintainer: L. Gerber <lorenz.gerber@provement.se>
+Description: library with functions to calculate
+ e12 replacement resistance values.
+ 

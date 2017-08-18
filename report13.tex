@@ -70,11 +70,115 @@ This lab was about creating Debian packages from the application written for
 lab 6 and lab 11 respectively.
 
 \section{Method}
+\subsection{Definitions}
+\begin{itemize}
+  \item upstream source
+  \item Debian Source Package
+  \item Debian Binary Package
+\end{itemize}
 \subsection{Tools}
 \subsection{Description}
+First the the libraries where rebuild using the -soname flag \cite{tldpShlibs}.
+\begin{verbatim}
+gcc -fPIC -c -Wall libresistance.c
+gcc -fPIC -c -Wall libpower.c
+gcc -fPIC -c -Wall libcomponent.c
+gcc -shared -Wl,-soname,libelectro.so.1 \
+    -o libelectro.so.1.0.1 libresistance.o libpower.o libcomponent.o -lc
+\end{verbatim}
+
+This resulted in a shared library: \verb+libelectro.so-1.0.1+. A symbolic
+link \verb+libelectro.so.1+ was also created:
+
+\begin{verbatim}
+  ln -s libelectro.so-1.0.1 libelectro.so.1
+\end{verbatim}
+
+Then a new directory tree was build:
+\begin{verbatim}
+  mkdir -p ./debian/usr/lib
+  mkdir -p ./debian/DEBIAN
+\end{verbatim}
+The library and the symbolic link where copied into \verb+./debian/usr/lib+. Then
+in \verb+./debian/DEBIAN+ three new files where created: \verb+control+,
+\verb+triggers+ and \verb+shlibs+.
+
+The \verb+control+ file was edited as follows \cite{controlfiles}:
+\begin{verbatim}
+Package: libelectro1
+Version: 1.0-1
+Section: libs
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.2.1)
+Maintainer: L. Gerber <lorenz.gerber@provement.se>
+Description: library with functions to calculate
+ e12 replacement resistance values.
+\end{verbatim}
+
+The \verb+triggers+ file contains only one line to trigger
+ldconfig \cite{debShlibs}:
+\begin{verbatim}
+activate-noawait ldconfig
+\end{verbatim}
+
+The shlibs file contains the following line \cite[8.6.4.2.]{debShlibs}:
+\begin{verbatim}
+libelectro 1 libelectro1
+\end{verbatim}
+Then the binary package is created:
+\begin{verbatim}
+fakeroot dpkg-deb --build libelectro-1.0/
+mv libelectro-1.0.deb libelectro.so-1.0-1_amd64.deb
+\end{verbatim}
+
+And finally the quality of the produced package is checked using:
+\begin{verbatim}
+lintian libelectro.so-1.0-1_amd64.deb
+\end{verbatim}
+
+This resulted in the follwing output:
+\begin{verbatim}
+E: libelectro1: unstripped-binary-or-object usr/lib/libelectro.so.1.0.1
+E: libelectro1: debian-changelog-file-missing
+E: libelectro1: no-copyright-file
+\end{verbatim}
+
+The following copyright file was added in
+\verb+libelectro-1.0/usr/share/doc/libelectro1/+:
+\begin{verbatim}
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: electrotest
+Source: https://github.com/lorenzgerber/electrotest
+
+Files: *
+Copyright: 2017 Lorenz Gerber <lorenz.gerber@provement.se>
+License: GPL-2+
+ This program is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later
+ version.
+ .
+ This program is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied
+ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ PURPOSE.  See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public
+ License along with this package; if not, write to the Free
+ Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ Boston, MA  02110-1301 USA
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+ \end{verbatim}
+
 
 
 \addcontentsline{toc}{section}{\refname}
-%\bibliography{references}
+\bibliography{references}
 
 \end{document}
