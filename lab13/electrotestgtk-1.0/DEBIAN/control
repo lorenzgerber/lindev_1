@@ -1,0 +1,10 @@
+Package: electrotestgtk1
+Version: 1.0-1
+Section: electronics
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.2.1), libelectro1 (>= 1.0-1), libgtk-x11.2.0, libgdk-x11-2.0, libpangocairo-1.0, libatk-1.0, libcairo, libgio-2.0, libpangoft2-1.0, libpango-1.0, libgobject-2.0, libglib-2.0, libfontconfig, libfreetype
+Maintainer: L. Gerber <lorenz.gerber@provement.se>
+Description: GTK+-2.0 application to calculate
+ e12 replacement resistance values.
+ 
