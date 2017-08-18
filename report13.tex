@@ -69,15 +69,46 @@
 This lab was about creating Debian packages from the application written for
 lab 6 and lab 11 respectively.
 
+Litterature study on various web resources showed that there are basically two
+different approaches: Starting with a tar.gz source archieve of the so called
+`upstream software' to be packaged for debian, or create directly a binary
+package. The former will ultimately also result in a binary package. It's the
+more generic way where the source is first compiled for the respective platform.
+As the lab instructions and forum entries suggested that both is viable, it was
+decided to produce directly binary packages.
+
 \section{Method}
-\subsection{Definitions}
-\begin{itemize}
-  \item upstream source
-  \item Debian Source Package
-  \item Debian Binary Package
-\end{itemize}
+\subsection{Basics}
+First a suitable binary has to be obtained or created. For normal programs, the
+requirements are not very specific. Here it was however attempted to also build
+a proper shared library package. For this, the binary had to be rebuild according
+to the specifications (e.g. using -soname flag)\cite{debShlibs}.
+
+Then, the directory tree has to be set up and the binary file(s) copied into it.
+Further, the required configuration files have to be created and copied into the
+directory tree.
+
+Then the package can be build.
+
+Finally, the result should be checked using the debian package linter `lintian'.
+Usually, the file modes have to be adjusted. It was found that the last two steps,
+`building' and `linting' were iterated until a satisfactiory result was obtained.
+
 \subsection{Tools}
-\subsection{Description}
+For producing a binary deb package, almost no tools besides a text editor were
+needed:
+\begin{enumerate}
+\item gcc build system to first produce the binaries
+\item dpkg-deb --build: to create the actual package
+\item fakeroot: used with dpgk-deb, to create the package as root user
+\item lintian: linter tool to check quality of the deb package
+\end{enumerate}
+
+For building source packages, a number of other tools that help to set up the
+initial directory tree and template files would be available.
+
+\section{Detailed Description}
+\subsection{libelectro1}
 First the the libraries where rebuild using the -soname flag \cite{tldpShlibs}.
 \begin{verbatim}
 gcc -fPIC -c -Wall libresistance.c
@@ -174,7 +205,33 @@ License: GPL-2+
  On Debian systems, the full text of the GNU General Public
  License version 2 can be found in the file
  `/usr/share/common-licenses/GPL-2'.
- \end{verbatim}
+\end{verbatim}
+
+The changelog file had to be gzipped with the parameters \verb+-n -9+. Lintian
+is very peculiar about the format of the changelog file. The `ITM close bug'
+issue still shown in `linitan'  can not be mended as it is a mechanism used
+when a package is developed to be included in the debian distribution: Lintian
+recognizes that the changelog only contains one entry, hence it assumes a new
+package. New packages have to be announced by filing a bug-report in the ITM
+system. Then the bug number has to be mentioned in the first entry to automatically
+close it. The following is the example text for the changelog file to be situated
+in \verb+usr/share/doc/electrolib1/+:
+\begin{verbatim}
+libelectro1 (1.0-1) UNRELEASED; urgency=low
+
+  * Initial release.
+  Not intended to be included in Debian, hence closes no initial bug.
+
+ -- Lorenz Gerber <lorenz.gerber@provement.se>  Fri, 18 Aug 2017 8:08:00 +0000
+\end{verbatim}
+Now `lintian' indicates that the package is clean. It can now be installed using:
+\begin{verbatim}
+sudo dpkg -i libelectro.so-1.0-1_amd64.deb
+\end{verbatim}
+and uninstalled using:
+\begin{verbatim}
+sudo dpkg -r libelectro1
+\end{verbatim}
 
 
 
